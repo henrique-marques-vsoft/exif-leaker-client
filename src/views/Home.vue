@@ -5,12 +5,11 @@
       <h1>Online EXIF Reader</h1>
       <p>Exif data, or metadata, is information embedded in a photo file that includes details about the device used to take the photo, such as the make and model of the camera or phone, as well as other information like the date the photo was taken and the camera's settings.</p>
       <div class="link-container">
-        <router-link to="/tutorial">Tutorial</router-link>
         <router-link to="/about">About</router-link>
       </div>
     </div>
     <div class="input-container">
-      <input class="input-file" type="file" name="" id="">
+      <input class="input-file" type="file" name="input-file" id="input-file">
       <v-btn>
         Button
       </v-btn>
@@ -24,6 +23,11 @@
 
 <style scoped>
   a {
+    color: goldenrod;
+    text-decoration: none;
+    transition: 300ms;
+  }
+  a:hover {
     color: white;
   }
   .body{

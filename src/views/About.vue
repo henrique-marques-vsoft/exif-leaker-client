@@ -7,7 +7,7 @@
     <p class="prompt-desc">AI Generated Image by Stable Diffusion AI. Prompt: Slow shutter speed photo of a cyberpunk scenery, architecture, public realm, jonathan solte and zac retz style</p>
     <div class="description-container">
       <h1>About this project</h1>
-      <h3>You can contribute to this project! Feel free to contribute or open an issue on Github.</h3>
+      <h3>You can contribute to this project! Feel free to open a issue or a pull request on Github.</h3>
       <a href="https://github.com/all123all/exif-leaker-client" target="_blank" rel="noopener noreferrer">Frontend here.</a>
       <a href="https://github.com/all123all/exif-leaker" target="_blank" rel="noopener noreferrer">Backend here.</a>
       <a href="https://github.com/all123all" target="_blank" rel="noopener noreferrer">Other projects here.</a>
