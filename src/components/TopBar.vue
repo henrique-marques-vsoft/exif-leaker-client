@@ -33,8 +33,9 @@ a {
   transition: 500ms;
   width: 12%;
   height: 100vh;
+  color: goldenrod;
 }
 .link-container:hover {
-  color: goldenrod;
+  color: black;
 }
 </style>

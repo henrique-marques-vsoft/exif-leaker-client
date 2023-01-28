@@ -9,16 +9,48 @@
       </div>
     </div>
     <div class="input-container">
-      <input class="input-file" type="file" name="input-file" id="input-file">
-      <v-btn>
-        Button
-      </v-btn>
+      <form @submit.prevent="submitForm">
+        <input
+          type="file"
+          ref="image"
+          @change="uploadImage"
+          class="input-file"
+          name="image-input"
+          id="input-file"
+        />
+        <v-btn type="submit">Leak!</v-btn>
+      </form>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
   import TopBar from '@/components/TopBar.vue'
+  import axios from 'axios'
+
+  export default{
+    data(){
+      return{
+        image: null
+      }
+    },
+    methods: {
+      uploadImage(){
+        this.image = this.$refs.image.files[0]
+      },
+      async submitForm() {
+        let formData = new FormData()
+        formData.append('image', this.image)
+
+        try{
+          let response = await axios.post('http://localhost:3001/upload', formData)
+          console.log(response.data)
+        }catch(err){
+          console.log(err)
+        }
+      }
+    }
+  }
 </script>
 
 <style scoped>
@@ -81,5 +113,40 @@
     justify-content: flex-start;
     gap: 5%;
     margin-top: 1%;
+  }
+  @media(max-width:1080px){
+    .body{
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .presentation-container{
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2%;
+      word-wrap: break-word;
+      }
+    .input-container{
+      padding: 0 20%;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .link-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 5%;
+      margin-top: 1%;
+    }
   }
 </style>
