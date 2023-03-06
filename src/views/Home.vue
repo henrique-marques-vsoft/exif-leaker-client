@@ -27,6 +27,8 @@
 <script lang="ts">
   import TopBar from '@/components/TopBar.vue'
   import axios from 'axios'
+  import { mapState, mapActions } from "pinia"
+  import {useInfoExif} from "@/store/exifManagement"
 
   export default{
     data(){
@@ -35,6 +37,7 @@
       }
     },
     methods: {
+      ...mapActions(useInfoExif, ["setExifData"]),
       uploadImage(){
         this.image = this.$refs.image.files[0]
       },
@@ -44,11 +47,18 @@
 
         try{
           let response = await axios.post('http://localhost:3001/upload', formData)
-          console.log(response.data)
+          this.setExifData(response.data)
+          this.$router.push('/uploaded')
         }catch(err){
           console.log(err)
         }
       }
+    },
+    components: {
+      TopBar
+    },
+    computed: {
+      ...mapState(useInfoExif, ["exifData"])
     }
   }
 </script>
