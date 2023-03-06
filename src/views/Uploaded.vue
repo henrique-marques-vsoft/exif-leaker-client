@@ -2,21 +2,28 @@
   <TopBar />
   <div class="body">
     <div class="table-container">
-      <v-data-table :headers="headers" :items="items" :items-per-page="10" class="elevation-1">
-        <template v-slot:item.value="{ item }">
-          {{ item.value }}
-        </template>
-        <template v-slot:item.description="{ item }">
-          {{ item.description }}
-        </template>
-      </v-data-table>
+      <ExifContentTable :object="exifData"/>
     </div>
-    <v-btn type="submit">Download full EXIF</v-btn>
+    <v-btn
+      type="submit"
+      disabled
+      color="gray"
+    >
+      Discover the location
+    </v-btn>
+    <v-btn
+      type="submit"
+      color="yellow"
+      @click="downloadExif"
+    >
+      Download full EXIF
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
   import TopBar from '@/components/TopBar.vue';
+  import ExifContentTable from "@/components/ExifContentTable.vue"
   import {mapState} from "pinia"
   import {useInfoExif} from "@/store/exifManagement"
   export default{
@@ -32,70 +39,32 @@
             property: 'Bits Per Sample',
             value: 8,
             description: '8',
-          },
-          {
-            property: 'Image Height',
-            value: 2333,
-            description: '2333px',
-          },
-          {
-            property: 'Image Width',
-            value: 4147,
-            description: '4147px',
-          },
-          {
-            property: 'Color Components',
-            value: 3,
-            description: '3',
-          },
-          {
-            property: 'Subsampling',
-            value: 'YCbCr4:4:4 (1 1)',
-            description: '[[1,17,0],[2,17,1],[3,17,1]]',
-          },
-          {
-            property: 'JFIF Version',
-            value: 257,
-            description: '1.1',
-          },
-          {
-            property: 'Resolution Unit',
-            value: 0,
-            description: 'None',
-          },
-          {
-            property: 'XResolution',
-            value: 1,
-            description: '1',
-          },
-          {
-            property: 'YResolution',
-            value: 1,
-            description: '1',
-          },
-          {
-            property: 'JFIF Thumbnail Width',
-            value: 0,
-            description: '0px',
-          },
-          {
-            property: 'JFIF Thumbnail Height',
-            value: 0,
-            description: '0px',
-          },
+          }
         ],
       }
     },
     methods: {
       showInfo(){
         console.log('exifData: ', this.exifData)
+      },
+      downloadExif(){
+        const filename = "exif-info.txt"
+        const text = JSON.stringify(this.exifData, null, 2)
+        const element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute("download", filename);
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
       }
     },
     computed: {
       ...mapState(useInfoExif, ["exifData"])
     },
     components: {
-      TopBar
+      TopBar,
+      ExifContentTable
     }
   }
 </script>
@@ -114,10 +83,14 @@ v-table{
   padding: 0 20%;
 }
 .table-container{
+  display: flex;
+  justify-content: center;
   width: 100%;
+  overflow: auto;
   border-width: 1px;
   border-color: black;
   border-style: solid;
+  border-radius: 8px;
 }
 button {
   margin-top: 2%;
@@ -125,5 +98,10 @@ button {
   border-width: 1px;
   border-color: #191b1c;
   border-style: solid;
+}
+@media(max-width:1080px){
+  .body{
+    padding: 5%;
+  }
 }
 </style>
