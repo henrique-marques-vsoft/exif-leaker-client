@@ -8,6 +8,7 @@
       type="submit"
       disabled
       color="gray"
+      class="btn-big"
     >
       Discover the location
     </v-btn>
@@ -15,8 +16,17 @@
       type="submit"
       color="yellow"
       @click="downloadExif"
+      class="btn-big"
     >
       Download full EXIF
+    </v-btn>
+    <v-btn
+      type="submit"
+      color="blue"
+      @click="redirect"
+      class="btn-big"
+    >
+      Discover another photo
     </v-btn>
   </div>
 </template>
@@ -46,6 +56,9 @@
     methods: {
       showInfo(){
         console.log('exifData: ', this.exifData)
+      },
+      redirect(){
+        this.$router.push('/')
       },
       downloadExif(){
         const filename = "exif-info.txt"
@@ -98,6 +111,10 @@ button {
   border-width: 1px;
   border-color: #191b1c;
   border-style: solid;
+  height: 80px;
+}
+.btn-big{
+  height: 50px;
 }
 @media(max-width:1080px){
   .body{

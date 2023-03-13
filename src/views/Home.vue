@@ -18,9 +18,24 @@
           name="image-input"
           id="input-file"
         />
-        <v-btn type="submit">Leak!</v-btn>
+        <v-btn :disabled="isDisabled" type="submit">{{ textButton }}</v-btn>
       </form>
     </div>
+    <v-snackbar
+      v-model="snackbar"
+      color="blue-darken-4"
+    >
+      {{ text }}
+      <template v-slot:actions>
+        <v-btn
+          color="white"
+          variant="text"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -33,24 +48,35 @@
   export default{
     data(){
       return{
-        image: null
+        image: null,
+        isDisabled: true,
+        textButton: "Upload an image first",
+        snackbar: false,
+        text: `Loading...`,
       }
     },
     methods: {
       ...mapActions(useInfoExif, ["setExifData"]),
       uploadImage(){
         this.image = this.$refs.image.files[0]
+        this.textButton = "Upload imagem!"
+        this.isDisabled = false
       },
       async submitForm() {
+        this.snackbar = true
+        this.isDisabled = true
+        this.textButton = "Wait..."
         let formData = new FormData()
         formData.append('image', this.image)
-
         try{
-          let response = await axios.post('http://localhost:3001/upload', formData)
+          let response = await axios.post('https://exif-reader.onrender.com/upload', formData)
           this.setExifData(response.data)
           this.$router.push('/uploaded')
         }catch(err){
           console.log(err)
+          this.isDisabled = false
+          this.textButton = "leak!"
+          this.snackbar = false
         }
       }
     },
@@ -125,38 +151,38 @@
     margin-top: 1%;
   }
   @media(max-width:1080px){
-    .body{
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
-    .presentation-container{
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2%;
-      word-wrap: break-word;
-      }
-    .input-container{
-      padding: 0 20%;
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-    }
-    .link-container {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 5%;
-      margin-top: 1%;
-    }
+  .body{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
+  .presentation-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2%;
+    word-wrap: break-word;
+    }
+  .input-container{
+    padding: 0 20%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .link-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%;
+    margin-top: 1%;
+  }
+}
 </style>

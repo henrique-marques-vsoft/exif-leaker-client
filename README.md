@@ -1,57 +1,16 @@
-# base
-
-## Project setup
-
+# EXIF-LEAKER
+## Run the project
 ```
-# yarn
+#Clone
+git clone https://github.com/all123all/exif-leaker-client.git
+cd exif-leaker-client
+#Install dependencies
 yarn
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-# yarn
+#Run the application
 yarn dev
-
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
 ```
-
-### Compiles and minifies for production
-
-```
-# yarn
-yarn build
-
-# npm
-npm run build
-
-# pnpm
-pnpm build
-```
-
-### Lints and fixes files
-
-```
-# yarn
-yarn lint
-
-# npm
-npm run lint
-
-# pnpm
-pnpm lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://vitejs.dev/config/).
+## Goals
+Steps:
+- [x] Connect with node server;
+- [x] Handle data in Pinia
+- [ ] List GPS location if it exists in the EXIF;
