@@ -24,7 +24,7 @@
     <v-snackbar
       v-model="snackbar"
       color="blue-darken-4"
-      :timeout="undefined"
+      :timeout="100000"
     >
       {{ text }}
       <template v-slot:actions>
@@ -60,7 +60,7 @@
       ...mapActions(useInfoExif, ["setExifData"]),
       uploadImage(){
         this.image = (this.$refs as any).image.files[0]
-        this.textButton = "Upload imagem!"
+        this.textButton = "Upload image"
         this.isDisabled = false
       },
       async submitForm() {

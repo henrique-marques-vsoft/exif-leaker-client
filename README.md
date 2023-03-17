@@ -1,4 +1,6 @@
 # EXIF-LEAKER
+## Deploy
+You can access the application by [clicking here](https://main--funny-crisp-bdd08f.netlify.app/)
 ## Run the project
 ```
 #Clone
