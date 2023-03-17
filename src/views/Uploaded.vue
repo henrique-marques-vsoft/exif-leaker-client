@@ -34,8 +34,8 @@
 <script lang="ts">
   import TopBar from '@/components/TopBar.vue';
   import ExifContentTable from "@/components/ExifContentTable.vue"
-  import {mapState} from "pinia"
-  import {useInfoExif} from "@/store/exifManagement"
+  import { mapState } from "pinia"
+  import { useInfoExif } from "@/store/exifManagement"
   export default{
     data(){
       return {
@@ -54,9 +54,6 @@
       }
     },
     methods: {
-      showInfo(){
-        console.log('exifData: ', this.exifData)
-      },
       redirect(){
         this.$router.push('/')
       },

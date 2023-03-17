@@ -24,6 +24,7 @@
     <v-snackbar
       v-model="snackbar"
       color="blue-darken-4"
+      :timeout="undefined"
     >
       {{ text }}
       <template v-slot:actions>
@@ -58,7 +59,7 @@
     methods: {
       ...mapActions(useInfoExif, ["setExifData"]),
       uploadImage(){
-        this.image = this.$refs.image.files[0]
+        this.image = (this.$refs as any).image.files[0]
         this.textButton = "Upload imagem!"
         this.isDisabled = false
       },
@@ -67,7 +68,7 @@
         this.isDisabled = true
         this.textButton = "Wait..."
         let formData = new FormData()
-        formData.append('image', this.image)
+        formData.append('image', this.image as any)
         try{
           let response = await axios.post('https://exif-reader.onrender.com/upload', formData)
           this.setExifData(response.data)

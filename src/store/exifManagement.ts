@@ -2,10 +2,10 @@ import { defineStore } from "pinia";
 
 export const useInfoExif = defineStore("exif", {
     state: () => ({
-        exifData: null
+        exifData: null || ''
     }),
     actions: {
-        setExifData(data){
+        setExifData(data: any){
             this.exifData = data
         }
     }

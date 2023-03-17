@@ -2,7 +2,7 @@
   <TopBar />
   <div class="body">
     <div class="img-container">
-      <img src="1.webp" alt="Girl in a jacket">
+      <img src="/1.webp" alt="Girl in a jacket">
     </div>
     <p class="prompt-desc">AI Generated Image by Stable Diffusion AI. Prompt: Slow shutter speed photo of a cyberpunk scenery, architecture, public realm, jonathan solte and zac retz style</p>
     <div class="description-container">
@@ -15,9 +15,14 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
   import TopBar from '@/components/TopBar.vue'
+
+  export default{
+    components: {
+      TopBar
+    }
+  }
 </script>
 
 <style scoped>
